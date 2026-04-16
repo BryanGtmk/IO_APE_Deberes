@@ -129,6 +129,9 @@ A continuación, se presenta la resolución detallada de los ejercicios plantead
 
 Tres huertas abastecen a cuatro minoristas. Las demandas son 150, 150, 400 y 100 cajas. Las ofertas normales son 150, 200 y 250 cajas.
 
+\paragraph{Literal a) Formulación del modelo}
+En este problema, los orígenes son las huertas \(H_1\), \(H_2\) y \(H_3\), mientras que los destinos son los minoristas \(M_1\), \(M_2\), \(M_3\) y \(M_4\). La oferta disponible corresponde a 150, 200 y 250 cajas, respectivamente, y la demanda es de 150, 150, 400 y 100 cajas. La matriz de costos de transporte está dada por los valores del enunciado. El objetivo del modelo es determinar cuántas cajas deben enviarse desde cada huerta hacia cada minorista para satisfacer la demanda con el menor costo total posible.
+
 \paragraph{Paso 1. Verificación del balance}
 Primero se calcula la oferta total:
 
@@ -166,6 +169,8 @@ H_3 & 1 & 3 & 5 & 3 & 250 \\
 \text{Demanda} & 150 & 150 & 400 & 100 &
 \end{array}
 \]
+
+\paragraph{Literal b) Resolución del problema}
 
 \paragraph{Paso 3. Método de Vogel - Iteración 1}
 Se calculan las penalizaciones por fila y por columna:
@@ -323,7 +328,7 @@ Por lo tanto:
 \boxed{Z = \$1150}
 \]
 
-\paragraph{Paso 8. Respuesta del inciso c)}
+\paragraph{Literal c) Respuesta al uso de tiempo extra}
 La huerta 1 no utiliza tiempo extra.
 
 \[
@@ -339,6 +344,9 @@ La huerta 2 sí utiliza tiempo extra.
 \subsubsection*{Ejercicio 2. Transporte de automóviles}
 
 Tres centros de distribución envían automóviles a cinco concesionarios. Cada camión lleva 18 automóviles y el costo es de \$25 por milla-camión.
+
+\paragraph{Literal a) Formulación del modelo}
+En este ejercicio, los orígenes son los centros de distribución \(D_1\), \(D_2\) y \(D_3\), y los destinos son los concesionarios \(C_1\), \(C_2\), \(C_3\), \(C_4\) y \(C_5\). La oferta y la demanda primero se transforman de automóviles a camiones, considerando que cada camión transporta 18 automóviles. La matriz de costos está representada por las distancias entre cada centro y cada concesionario. El objetivo del modelo es determinar cuántos camiones deben enviarse desde cada centro de distribución hacia cada concesionario para minimizar el costo total de transporte.
 
 \paragraph{Paso 1. Conversión de automóviles a camiones}
 Oferta:
@@ -366,6 +374,8 @@ D_3 & 40 & 90 & 100 & 150 & 130 & 9 \\
 \text{Demanda} & 6 & 12 & 9 & 9 & 8 &
 \end{array}
 \]
+
+\paragraph{Literal b) Determinación del programa de envíos óptimo}
 
 \paragraph{Paso 2. Método del costo mínimo - Iteración 1}
 El menor costo es 35 en la ruta:
