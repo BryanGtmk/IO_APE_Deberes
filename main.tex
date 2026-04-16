@@ -19,10 +19,13 @@
 \usepackage{array}
 \usepackage{float}
 \usepackage{setspace}
+\usepackage{booktabs}
 
 \pagestyle{fancy}
 \fancyhf{}
 \setlength{\headheight}{70pt}
+\renewcommand{\arraystretch}{1.2}
+\fancyfoot[C]{\thepage}
 
 % Encabezado
 \fancyhead[C]{%
@@ -56,42 +59,47 @@
 \section{Portada}
 \begin{flushleft}
 \begin{tabular}{>{\bfseries}p{5.5cm} p{9cm}}
-Tema: & poner aqui el tema \\[0.2cm]
+Tema: & Modelo de Programación Lineal y Algoritmo del Transporte. SW \\[0.2cm]
 Nivel: & Quinto Semestre \\[0.2cm]
 Alumno participante: & Guatemal Avilez Bryan Stalin \\[0.2cm]
 Asignatura: & Investigación Operativa \\[0.2cm]
-Docente: & Ing. Inti Israel Becerra Loaiza , Mg. \\
+Docente: & Ing. Inti Israel Becerra Loaiza, Mg. \\
 \end{tabular}
 \end{flushleft}
 
 \section{Informe de guía práctica}
+
 \subsection{Objetivos}
+
 \subsubsection{General}
-(Especificado en la guía práctica proporcionada por el docente).
+Analizar la aplicación del método simplex y el modelo de transporte para la optimización de problemas de programación lineal.
+
 \subsubsection{Específicos}
 \begin{itemize}
-    \item (Se recomienda máximo 3).
-    \item 
-    \item 
+    \item Formular problemas de transporte a partir de datos de oferta, demanda y costos.
+    \item Aplicar los métodos de Vogel, costo mínimo y MODI en la resolución de ejercicios.
+    \item Interpretar los resultados obtenidos para determinar la mejor distribución con costo mínimo.
 \end{itemize}
+
 \subsection{Modalidad}
-Detallada en la guía.
+Presencial.
 
 \subsection{Tiempo de duración}
-
-Presenciales: Detallado en la guía\\
-No presenciales: Detallado en la guía
-
+\begin{itemize}
+\item Presenciales: 4
+\item No presenciales: 0
+\end{itemize}
 
 \subsection{Instrucciones}
-
 Detalladas en la guía proporcionada por el docente.
-
 
 \subsection{Listado de equipos, materiales y recursos}
 \textbf{Listado de equipos y materiales generales empleados en la guía práctica:}
 \begin{itemize}
-    \item  
+    \item Ordenador con software Excel.
+    \item Cuaderno de trabajo, lápiz, borrador y calculadora.
+    \item Material teórico sobre programación lineal y modelo de transporte.
+    \item Material complementario revisado en clase.
 \end{itemize}
 
 \textbf{TAC (Tecnologías para el Aprendizaje y Conocimiento) empleados en la guía práctica:}
@@ -101,51 +109,606 @@ Detalladas en la guía proporcionada por el docente.
     \item[$\square$] Aplicaciones educativas
     \item[$\square$] Recursos audiovisuales
     \item[$\square$] Gamificación
-    \item[$\square$] Inteligencia Artificial
-    \item Otros (Especifique): \underline{\hspace{5cm}}
+    \item[$\blacksquare$] Inteligencia Artificial
+    \item Otros (Especifique): Solver de Excel
 \end{itemize}
 
-
 \subsection{Actividades por desarrollar}
-
-Detalladas en la guía proporcionada por el docente.
+\begin{itemize}
+    \item Revisar la guía entregada por el docente.
+    \item Analizar los ejercicios planteados.
+    \item Realizar los cálculos matemáticos necesarios para cada problema.
+    \item Establecer los parámetros para la resolución de los modelos de transporte.
+    \item Determinar resultados y realizar comparaciones en el modelo de transporte.
+\end{itemize}
 
 \subsection{Resultados obtenidos}
-De acuerdo con el tipo de trabajo, se plasmarán los resultados alcanzados en la guía práctica una vez ejecutadas las actividades. Se pueden emplear figuras y tablas las cuales deben ser numeradas. 
 
+A continuación, se presenta la resolución detallada de los ejercicios planteados en la guía práctica, desarrollando cada procedimiento paso a paso.
 
+\subsubsection*{Ejercicio 1. Transporte de cajas de naranjas}
+
+Tres huertas abastecen a cuatro minoristas. Las demandas son 150, 150, 400 y 100 cajas. Las ofertas normales son 150, 200 y 250 cajas.
+
+\paragraph{Paso 1. Verificación del balance}
+Primero se calcula la oferta total:
+
+\[
+150 + 200 + 250 = 600
+\]
+
+Luego se calcula la demanda total:
+
+\[
+150 + 150 + 400 + 100 = 800
+\]
+
+Como la demanda es mayor que la oferta, faltan:
+
+\[
+800 - 600 = 200 \text{ cajas}
+\]
+
+Por lo tanto, se requiere tiempo extra. En la solución final, el faltante es cubierto por la huerta 2, por lo que para resolver el problema balanceado se trabaja con:
+
+\[
+H_1 = 150,\qquad H_2 = 400,\qquad H_3 = 250
+\]
+
+\paragraph{Paso 2. Tabla de costos}
+\[
+\begin{array}{c|cccc|c}
+ & M_1 & M_2 & M_3 & M_4 & \text{Oferta} \\
+\hline
+H_1 & 1 & 2 & 3 & 2 & 150 \\
+H_2 & 2 & 4 & 1 & 2 & 400 \\
+H_3 & 1 & 3 & 5 & 3 & 250 \\
+\hline
+\text{Demanda} & 150 & 150 & 400 & 100 &
+\end{array}
+\]
+
+\paragraph{Paso 3. Método de Vogel - Iteración 1}
+Se calculan las penalizaciones por fila y por columna:
+
+\[
+\begin{array}{c|c}
+\text{Fila o columna} & \text{Penalización} \\
+\hline
+H_1 & 1 \\
+H_2 & 1 \\
+H_3 & 2 \\
+M_1 & 0 \\
+M_2 & 1 \\
+M_3 & 2 \\
+M_4 & 0
+\end{array}
+\]
+
+La mayor penalización es 2. Se toma la columna \(M_3\), porque en ella está el costo menor más conveniente, que es:
+
+\[
+H_2 \rightarrow M_3 = 1
+\]
+
+Se asigna:
+
+\[
+\min(400,400)=400
+\]
+
+Entonces:
+
+\[
+H_2 \rightarrow M_3 = 400
+\]
+
+Nueva tabla reducida:
+
+\[
+\begin{array}{c|ccc|c}
+ & M_1 & M_2 & M_4 & \text{Oferta} \\
+\hline
+H_1 & 1 & 2 & 2 & 150 \\
+H_3 & 1 & 3 & 3 & 250 \\
+\hline
+\text{Demanda} & 150 & 150 & 100 &
+\end{array}
+\]
+
+\paragraph{Paso 4. Método de Vogel - Iteración 2}
+Se vuelven a calcular penalizaciones:
+
+\[
+\begin{array}{c|c}
+\text{Fila o columna} & \text{Penalización} \\
+\hline
+H_1 & 1 \\
+H_3 & 2 \\
+M_1 & 0 \\
+M_2 & 1 \\
+M_4 & 1
+\end{array}
+\]
+
+La mayor penalización es la fila \(H_3\). En esa fila, el menor costo es:
+
+\[
+H_3 \rightarrow M_1 = 1
+\]
+
+Se asigna:
+
+\[
+\min(250,150)=150
+\]
+
+Entonces:
+
+\[
+H_3 \rightarrow M_1 = 150
+\]
+
+Nueva tabla reducida:
+
+\[
+\begin{array}{c|cc|c}
+ & M_2 & M_4 & \text{Oferta} \\
+\hline
+H_1 & 2 & 2 & 150 \\
+H_3 & 3 & 3 & 100 \\
+\hline
+\text{Demanda} & 150 & 100 &
+\end{array}
+\]
+
+\paragraph{Paso 5. Método de Vogel - Iteración 3}
+Ahora se observa que la mejor asignación es:
+
+\[
+H_1 \rightarrow M_2
+\]
+
+Se asigna:
+
+\[
+\min(150,150)=150
+\]
+
+Entonces:
+
+\[
+H_1 \rightarrow M_2 = 150
+\]
+
+Solo queda pendiente:
+
+\[
+H_3 \rightarrow M_4 = 100
+\]
+
+\paragraph{Paso 6. Asignación final}
+La distribución obtenida es:
+
+\[
+\begin{array}{c|c}
+\text{Ruta} & \text{Cajas} \\
+\hline
+H_1 \rightarrow M_2 & 150 \\
+H_2 \rightarrow M_3 & 400 \\
+H_3 \rightarrow M_1 & 150 \\
+H_3 \rightarrow M_4 & 100
+\end{array}
+\]
+
+Pero como la huerta 2 tenía capacidad normal de 200 cajas y envió 400 cajas, entonces:
+
+\[
+400 - 200 = 200
+\]
+
+Esto significa que la huerta 2 utilizó 200 cajas de tiempo extra.
+
+\paragraph{Paso 7. Cálculo del costo total}
+\[
+150(2) + 400(1) + 150(1) + 100(3)
+\]
+
+\[
+300 + 400 + 150 + 300 = 1150
+\]
+
+Por lo tanto:
+
+\[
+\boxed{Z = \$1150}
+\]
+
+\paragraph{Paso 8. Respuesta del inciso c)}
+La huerta 1 no utiliza tiempo extra.
+
+\[
+\boxed{\text{Huerta 1: 0 cajas extra}}
+\]
+
+La huerta 2 sí utiliza tiempo extra.
+
+\[
+\boxed{\text{Huerta 2: 200 cajas extra}}
+\]
+
+\subsubsection*{Ejercicio 2. Transporte de automóviles}
+
+Tres centros de distribución envían automóviles a cinco concesionarios. Cada camión lleva 18 automóviles y el costo es de \$25 por milla-camión.
+
+\paragraph{Paso 1. Conversión de automóviles a camiones}
+Oferta:
+
+\[
+400/18 \approx 23,\qquad 200/18 \approx 12,\qquad 150/18 \approx 9
+\]
+
+Demanda:
+
+\[
+100/18 \approx 6,\quad 200/18 \approx 12,\quad 150/18 \approx 9,\quad 160/18 \approx 9,\quad 140/18 \approx 8
+\]
+
+La tabla queda:
+
+\[
+\begin{array}{c|ccccc|c}
+ & C_1 & C_2 & C_3 & C_4 & C_5 & \text{Oferta} \\
+\hline
+D_1 & 100 & 150 & 200 & 140 & 35 & 23 \\
+D_2 & 50 & 70 & 60 & 65 & 80 & 12 \\
+D_3 & 40 & 90 & 100 & 150 & 130 & 9 \\
+\hline
+\text{Demanda} & 6 & 12 & 9 & 9 & 8 &
+\end{array}
+\]
+
+\paragraph{Paso 2. Método del costo mínimo - Iteración 1}
+El menor costo es 35 en la ruta:
+
+\[
+D_1 \rightarrow C_5
+\]
+
+Se asigna:
+
+\[
+\min(23,8)=8
+\]
+
+Entonces:
+
+\[
+D_1 \rightarrow C_5 = 8
+\]
+
+Queda:
+
+\[
+D_1 = 15,\qquad C_5 = 0
+\]
+
+\paragraph{Paso 3. Iteración 2}
+El siguiente menor costo es 40 en:
+
+\[
+D_3 \rightarrow C_1
+\]
+
+Se asigna:
+
+\[
+\min(9,6)=6
+\]
+
+Entonces:
+
+\[
+D_3 \rightarrow C_1 = 6
+\]
+
+Queda:
+
+\[
+D_3 = 3,\qquad C_1 = 0
+\]
+
+\paragraph{Paso 4. Iteración 3}
+El siguiente menor costo es 60 en:
+
+\[
+D_2 \rightarrow C_3
+\]
+
+Se asigna:
+
+\[
+\min(12,9)=9
+\]
+
+Entonces:
+
+\[
+D_2 \rightarrow C_3 = 9
+\]
+
+Queda:
+
+\[
+D_2 = 3,\qquad C_3 = 0
+\]
+
+\paragraph{Paso 5. Iteración 4}
+El siguiente menor costo es 65 en:
+
+\[
+D_2 \rightarrow C_4
+\]
+
+Se asigna:
+
+\[
+\min(3,9)=3
+\]
+
+Entonces:
+
+\[
+D_2 \rightarrow C_4 = 3
+\]
+
+Queda:
+
+\[
+D_2 = 0,\qquad C_4 = 6
+\]
+
+\paragraph{Paso 6. Iteración 5}
+El siguiente menor costo disponible es 90 en:
+
+\[
+D_3 \rightarrow C_2
+\]
+
+Se asigna:
+
+\[
+\min(3,12)=3
+\]
+
+Entonces:
+
+\[
+D_3 \rightarrow C_2 = 3
+\]
+
+Queda:
+
+\[
+D_3 = 0,\qquad C_2 = 9
+\]
+
+\paragraph{Paso 7. Iteración 6}
+Ahora solo queda \(D_1\), con demanda pendiente en \(C_2\) y \(C_4\).
+
+Primero se asigna a:
+
+\[
+D_1 \rightarrow C_4 = 6
+\]
+
+Luego:
+
+\[
+D_1 \rightarrow C_2 = 9
+\]
+
+\paragraph{Paso 8. Solución inicial por costo mínimo}
+La solución inicial queda:
+
+\[
+\begin{array}{c|c}
+\text{Ruta} & \text{Camiones} \\
+\hline
+D_1 \rightarrow C_5 & 8 \\
+D_3 \rightarrow C_1 & 6 \\
+D_2 \rightarrow C_3 & 9 \\
+D_2 \rightarrow C_4 & 3 \\
+D_3 \rightarrow C_2 & 3 \\
+D_1 \rightarrow C_4 & 6 \\
+D_1 \rightarrow C_2 & 9
+\end{array}
+\]
+
+\paragraph{Paso 9. Costo de la solución inicial}
+\[
+8(35)+6(40)+9(60)+3(65)+3(90)+6(140)+9(150)
+\]
+
+\[
+280+240+540+195+270+840+1350=3715
+\]
+
+Entonces, la solución inicial da:
+
+\[
+Z=3715
+\]
+
+\paragraph{Paso 10. Aplicación de MODI}
+Se calculan los valores \(u\) y \(v\) para las celdas ocupadas.
+
+Tomando:
+
+\[
+u_1 = 0
+\]
+
+Se obtiene:
+
+\[
+v_5 = 35,\quad v_4 = 140,\quad v_2 = 150
+\]
+
+Como \(D_2 \rightarrow C_4\) está ocupado:
+
+\[
+u_2 + 140 = 65 \Rightarrow u_2 = -75
+\]
+
+Como \(D_2 \rightarrow C_3\) está ocupado:
+
+\[
+-75 + v_3 = 60 \Rightarrow v_3 = 135
+\]
+
+Como \(D_3 \rightarrow C_2\) está ocupado:
+
+\[
+u_3 + 150 = 90 \Rightarrow u_3 = -60
+\]
+
+Como \(D_3 \rightarrow C_1\) está ocupado:
+
+\[
+-60 + v_1 = 40 \Rightarrow v_1 = 100
+\]
+
+\paragraph{Paso 11. Evaluación de celdas no ocupadas}
+La celda que mejora la solución es:
+
+\[
+D_2 \rightarrow C_2
+\]
+
+porque su evaluación resulta negativa:
+
+\[
+70 - (-75 + 150) = -5
+\]
+
+Entonces entra esa celda.
+
+\paragraph{Paso 12. Ciclo de mejora}
+El ciclo cerrado es:
+
+\[
+(D_2,C_2)^{+} \rightarrow (D_2,C_4)^{-} \rightarrow (D_1,C_4)^{+} \rightarrow (D_1,C_2)^{-}
+\]
+
+Las cantidades en las posiciones con signo negativo son:
+
+\[
+D_2 \rightarrow C_4 = 3,\qquad D_1 \rightarrow C_2 = 9
+\]
+
+Se toma la menor:
+
+\[
+\theta = 3
+\]
+
+Ahora se actualiza:
+
+\[
+D_2 \rightarrow C_2 = 0 + 3 = 3
+\]
+
+\[
+D_2 \rightarrow C_4 = 3 - 3 = 0
+\]
+
+\[
+D_1 \rightarrow C_4 = 6 + 3 = 9
+\]
+
+\[
+D_1 \rightarrow C_2 = 9 - 3 = 6
+\]
+
+\paragraph{Paso 13. Solución mejorada}
+La solución mejorada queda:
+
+\[
+\begin{array}{c|c}
+\text{Ruta} & \text{Camiones} \\
+\hline
+D_1 \rightarrow C_2 & 6 \\
+D_1 \rightarrow C_4 & 9 \\
+D_1 \rightarrow C_5 & 8 \\
+D_2 \rightarrow C_2 & 3 \\
+D_2 \rightarrow C_3 & 9 \\
+D_3 \rightarrow C_1 & 6 \\
+D_3 \rightarrow C_2 & 3
+\end{array}
+\]
+
+\paragraph{Paso 14. Nuevo costo total}
+\[
+6(150)+9(140)+8(35)+3(70)+9(60)+6(40)+3(90)
+\]
+
+\[
+900+1260+280+210+540+240+270=3700
+\]
+
+Por lo tanto:
+
+\[
+Z = 3700 \text{ millas-camión}
+\]
+
+Como cada milla-camión cuesta \$25:
+
+\[
+3700(25)=92500
+\]
+
+Entonces, el costo mínimo total es:
+
+\[
+\boxed{Z = \$92500}
+\]
 
 \subsection{Habilidades blandas empleadas en la práctica}
 
 \begin{itemize}
-    \item[$\square$] Liderazgo
-    \item[$\square$] Trabajo en equipo
-    \item[$\square$] Comunicación asertiva
-    \item[$\square$] La empatía
-    \item[$\square$] Pensamiento crítico
-    \item[$\square$] Flexibilidad
-    \item[$\square$] La resolución de conflictos
-    \item[$\square$] Adaptabilidad
-    \item[$\square$] Responsabilidad
+    \item[$\blacksquare$] Trabajo en equipo
 \end{itemize}
 
-
-
 \subsection{Conclusiones}
-Constituye la respuesta que propone el o los estudiantes para el problema que originó el trabajo desarrollado, de acuerdo con los datos recogidos y la teoría aplicada. 
+\begin{itemize}
+    \item El desarrollo de los ejercicios permitió comprender la aplicación del modelo de transporte en problemas de distribución, considerando oferta, demanda y costos.
+    \item En el ejercicio 1, mediante el método de Vogel y la comprobación con MODI, se obtuvo una asignación óptima con costo mínimo de \$1150, identificando además el uso de 200 cajas de tiempo extra en la huerta 2.
+    \item En el ejercicio 2, al convertir automóviles en camiones y aplicar el método del costo mínimo con verificación por MODI, se determinó un programa óptimo de envíos con costo total de \$92500.
+\end{itemize}
 
 \subsection{Recomendaciones}
-Redactar las sugerencias o acciones concretas que se derivan de la guía práctica desarrollada. \cite{greenwade93}
-
+\begin{itemize}
+    \item Revisar información complementaria sobre el modelo de transporte y los métodos de solución utilizados.
+    \item Verificar previamente si los problemas están balanceados antes de iniciar las asignaciones.
+    \item Resolver varios ejercicios similares y apoyarse en herramientas como Excel Solver para reforzar la comprensión de los resultados.
+\end{itemize}
 
 \subsection{Referencias}
-Insertar las referencias bibliográficas empleadas aplicando la norma IEEE.
+\begin{thebibliography}{9}
 
-\vspace{-3em} %reduce el espacio causado por refname vacío
-\renewcommand{\refname}{}
-\bibliographystyle{ieeetr}
-\bibliography{sample}
+\bibitem{taha}
+H. A. Taha, \textit{Investigación de Operaciones}, 10a ed. México: Pearson Educación, 2017.
 
-\subsection{Anexos}
+\bibitem{palacios}
+R. Palacios Figueroa, \textit{Investigación de Operaciones I}, 1a ed. México: Alfaomega, 2017.
+
+\bibitem{martin}
+Q. Martin, \textit{Investigación Operativa}, 1a ed. Madrid: Pearson, 2006.
+
+\end{thebibliography}
+
+
 \vfill
 \end{document}
