@@ -89,7 +89,7 @@ Presenciales: 4\\
 No presenciales: 0
 
 \subsection{Instrucciones}
-Revisar detenidamente la guía proporcionada por el docente y analizar la información presentada en clase sobre el modelo de transporte. Investigar información adicional y complementaria relacionada con los casos propuestos, con el fin de reforzar la comprensión de los métodos aplicados. Desarrollar paso a paso los ejercicios planteados, identificando correctamente la oferta, la demanda y los costos unitarios de transporte. Finalmente, contrastar los resultados obtenidos de manera manual con herramientas de apoyo como Solver de Excel, para verificar la solución óptima y fortalecer el aprendizaje del tema.
+Lea el enunciado de cada ejercicio e identifique claramente oferta, demanda y matriz de costos (o distancias). Formule cada caso como modelo de transporte y verifique si está balanceado. Si no está balanceado, realice el ajuste correspondiente antes de resolver. Para el ejercicio 1, aplique el método de Vogel para obtener la solución inicial y compruebe la optimalidad con MODI, considerando la posibilidad de tiempo extra en las huertas 1 y 2. Para el ejercicio 2, convierta automóviles a camiones de 18 unidades, aplique el método del costo mínimo y mejore la solución con MODI hasta alcanzar el costo mínimo. Registre la asignación final por rutas y el costo total óptimo de cada ejercicio.
 
 \subsection{Listado de equipos, materiales y recursos}
 \textbf{Listado de equipos y materiales generales empleados en la guía práctica:}
@@ -127,7 +127,22 @@ A continuación, se presenta la resolución detallada de los ejercicios plantead
 
 \subsubsection*{Ejercicio 1. Transporte de cajas de naranjas}
 
-Tres huertas abastecen a cuatro minoristas. Las demandas son 150, 150, 400 y 100 cajas. Las ofertas normales son 150, 200 y 250 cajas.
+\paragraph{Enunciado}
+Tres huertas abastecen a cuatro minoristas con cajas de naranjas. La demanda diaria es de 150, 150, 400 y 100 cajas, y las ofertas normales son de 150, 200 y 250 cajas. Las huertas 1 y 2 pueden cubrir producción adicional mediante tiempo extra, mientras que la huerta 3 no dispone de esa opción.
+
+\begin{enumerate}[label=\alph*)]
+    \item Formular el modelo de transporte.
+    \item Resolver el problema.
+    \item Determinar cuántas cajas adicionales abastecen las huertas 1 y 2 con tiempo extra.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{imagenes/ejercicios1_Costo_de_transportecaja_en_dolares.png}
+    \caption{Enunciado del Ejercicio 1: costos de transporte por caja.}
+\end{figure}
+
+\paragraph{Resolución del ejercicio}
 
 \paragraph{Literal a) Formulación del modelo}
 En este problema, los orígenes son las huertas \(H_1\), \(H_2\) y \(H_3\), mientras que los destinos son los minoristas \(M_1\), \(M_2\), \(M_3\) y \(M_4\). La oferta disponible corresponde a 150, 200 y 250 cajas, respectivamente, y la demanda es de 150, 150, 400 y 100 cajas. La matriz de costos de transporte está dada por los valores del enunciado. El objetivo del modelo es determinar cuántas cajas deben enviarse desde cada huerta hacia cada minorista para satisfacer la demanda con el menor costo total posible.
@@ -328,6 +343,10 @@ Por lo tanto:
 \boxed{Z = \$1150}
 \]
 
+\paragraph{Comprobación con MODI}
+La solución obtenida mediante el método de Vogel fue verificada con el método MODI, comprobándose que no existe una mejor asignación, por lo que el costo mínimo total permanece en \(\$1150\).
+
+
 \paragraph{Literal c) Respuesta al uso de tiempo extra}
 La huerta 1 no utiliza tiempo extra.
 
@@ -341,9 +360,26 @@ La huerta 2 sí utiliza tiempo extra.
 \boxed{\text{Huerta 2: 200 cajas extra}}
 \]
 
+\paragraph{Respuesta final del ejercicio 1}
+La solución óptima del problema de transporte es enviar 150 cajas de \(H_1\) a \(M_2\), 400 cajas de \(H_2\) a \(M_3\), 150 cajas de \(H_3\) a \(M_1\) y 100 cajas de \(H_3\) a \(M_4\), con costo mínimo total de \(\$1150\). El uso de tiempo extra corresponde a 0 cajas en la huerta 1 y 200 cajas en la huerta 2.
+
 \subsubsection*{Ejercicio 2. Transporte de automóviles}
 
-Tres centros de distribución envían automóviles a cinco concesionarios. Cada camión lleva 18 automóviles y el costo es de \$25 por milla-camión.
+\paragraph{Enunciado}
+Tres centros de distribución envían automóviles a cinco concesionarios. El costo de envío depende de la distancia en millas entre origen y destino y cada camión puede transportar 18 automóviles. El costo unitario es de \$25 por milla-camión.
+
+\begin{enumerate}[label=\alph*)]
+    \item Formular el modelo de transporte asociado.
+    \item Determinar el programa óptimo de envíos.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{imagenes/ejercicios2_Distancia_en_millas_y_oferta_y_demanda.png}
+    \caption{Enunciado del Ejercicio 2: distancias, oferta y demanda.}
+\end{figure}
+
+\paragraph{Resolución del ejercicio}
 
 \paragraph{Literal a) Formulación del modelo}
 En este ejercicio, los orígenes son los centros de distribución \(D_1\), \(D_2\) y \(D_3\), y los destinos son los concesionarios \(C_1\), \(C_2\), \(C_3\), \(C_4\) y \(C_5\). La oferta y la demanda primero se transforman de automóviles a camiones, considerando que cada camión transporta 18 automóviles. La matriz de costos está representada por las distancias entre cada centro y cada concesionario. El objetivo del modelo es determinar cuántos camiones deben enviarse desde cada centro de distribución hacia cada concesionario para minimizar el costo total de transporte.
@@ -683,6 +719,9 @@ Entonces, el costo mínimo total es:
 \[
 \boxed{Z = \$92500}
 \]
+
+\paragraph{Respuesta final del ejercicio 2}
+El programa óptimo de envíos en camiones es: \(D_1 \rightarrow C_2 = 6\), \(D_1 \rightarrow C_4 = 9\), \(D_1 \rightarrow C_5 = 8\), \(D_2 \rightarrow C_2 = 3\), \(D_2 \rightarrow C_3 = 9\), \(D_3 \rightarrow C_1 = 6\) y \(D_3 \rightarrow C_2 = 3\). Con este plan, el costo mínimo total de transporte es \(\$92500\).
 
 \subsection{Habilidades blandas empleadas en la práctica}
 
